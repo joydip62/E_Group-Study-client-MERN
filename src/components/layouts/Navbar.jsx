@@ -51,7 +51,7 @@ const Navbar = () => {
           ) : (
             <div className="flex gap-1 items-center">
               <NavLink
-                to="/"
+                to="/createAssignment"
                 className={({ isActive }) =>
                   isActive ? "btn btn-sm btn-neutral" : "btn btn-sm btn-ghost"
                 }

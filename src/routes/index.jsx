@@ -4,11 +4,15 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Assignment from "../pages/Assignment/Assignment";
+import PrivateRoute from "./PrivateRoute";
+import CreateAssignment from "../pages/Assignment/CreateAssignment/CreateAssignment";
+import NotFoundPage from "../pages/Error/NotFoundPage";
 
 const routes = createBrowserRouter([
     {
         path: '/',
         element: <App />,
+        errorElement: <NotFoundPage/>,
         children: [
             {
                 index: true,
@@ -17,6 +21,10 @@ const routes = createBrowserRouter([
             {
                 path: 'assignment',
                 element: <Assignment />
+            },
+            {
+                path: 'createAssignment',
+                element: <PrivateRoute><CreateAssignment /></PrivateRoute>
             }
         ]
     },

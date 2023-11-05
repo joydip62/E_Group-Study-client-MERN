@@ -8,10 +8,10 @@ function App() {
   return (
     <>
       <MainLayout>
-        <div className='w-full max-w-[1280px] mx-auto p-5'>
+        <div className="w-full max-w-[1280px] mx-auto p-5">
           <Outlet></Outlet>
-          <Footer/>
         </div>
+        <Footer />
       </MainLayout>
     </>
   );

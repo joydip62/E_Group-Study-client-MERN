@@ -1,8 +1,8 @@
 
 const Footer = () => {
     return (
-      <div>
-        <footer className="footer items-center p-4 bg-base-200 ">
+      <div className="w-full bg-base-300">
+        <footer className="footer items-center p-4 w-full max-w-[1280px] mx-auto">
           <aside className="items-center grid-flow-col">
             <b className="text-xl">E-Group Study</b>
             <p className="">Copyright © 2023 - All right reserved</p>
