@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAuth from "../../../hooks/useAuth";
+import useAxios from "../../../hooks/useAxios";
+import Swal from "sweetalert2";
 
 const CreateAssignment = () => {
   useEffect(() => {
@@ -11,7 +13,8 @@ const CreateAssignment = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   const { user } = useAuth();
-
+  const axios = useAxios();
+  
   const handleCreateAssignment = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -33,8 +36,22 @@ const CreateAssignment = () => {
       assignmentCreator,
     };
 
-    
-    console.log(assignment);
+ 
+
+    axios
+      .post("create/assignment", assignment)
+      .then((res) => {
+        console.log(res.data);
+        Swal.fire(
+          "Good job!",
+          "Your Assignment added successfully!",
+          "success"
+        );
+        form.reset();
+      })
+      .catch(function (error) {
+        Swal.fire("Oopsss", error.message, "error");
+      });
   };
   return (
     <div className="w-3/4 m-auto text-center lg:p-24">
