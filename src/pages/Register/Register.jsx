@@ -5,12 +5,15 @@ import { useState } from "react";
 // import toast from "react-hot-toast";
 import Social from "../../shared/Social";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const Register = () => {
     const { createUser, handleUpdateProfile } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [showPass, setShowPass] = useState(false);
+
+  
 
     const handleCreateUser = (e) => {
       e.preventDefault();
@@ -20,38 +23,32 @@ const Register = () => {
       const password = e.target.password.value;
 
       if (password.length < 6) {
-        // toast.error("Your password must be at least 6 characters");
-        Swal.fire(
-          "Oopsss",
-          "Your password must be at least 6 characters",
-          "error"
-        );
+        const toastId = toast.loading("Loading");
+        toast.error("Your password must be at least 6 characters", {
+          id: toastId,
+        });
 
         return;
       } else if (!/^(?=.*?[a-z])/.test(password)) {
-        // toast.error("Your password must be at least 1 lowercase");
-        Swal.fire(
-          "Oopsss",
-          "Your password must be at least 1 lowercase",
-          "error"
-        );
+        const toastId = toast.loading("Loading");
+        toast.error("Your password must be at least 1 lowercase", {
+          id: toastId,
+        });
+
         return;
       } else if (!/(?=.*?[A-Z])/.test(password)) {
-        // toast.error("Your password must be at least 1 uppercase");
-        Swal.fire(
-          "Oopsss",
-          "Your password must be at least 1 uppercase",
-          "error"
-        );
+        const toastId = toast.loading("Loading");
+        toast.error("Your password must be at least 1 uppercase", {
+          id: toastId,
+        });
         return;
       } else if (!/(?=.*?[#?!@$%^&*-])/.test(password)) {
-        // toast.error(
-        //   "Your password must be at least 1 special character(#?!@$%^&*-)"
-        // );
-        Swal.fire(
-          "Oopsss",
+        const toastId = toast.loading("Loading");
+        toast.error(
           "Your password must be at least 1 special character(#?!@$%^&*-)",
-          "error"
+          {
+            id: toastId,
+          }
         );
         return;
       }
@@ -60,14 +57,15 @@ const Register = () => {
         // eslint-disable-next-line no-unused-vars
         .then(() => {
           handleUpdateProfile(name, photoUrl).then(() => {
-            // toast.success("You have successfully Register");
             Swal.fire("Good Job!", "You have successfully Register", "success");
             navigate(location?.state ? location.state : "/");
           });
         })
         .catch((error) => {
-          // toast.error(error.message);
-          Swal.fire("Oopsss", error.message, "error");
+          const toastId = toast.loading("Loading");
+          toast.error(error.message, {
+            id: toastId,
+          });
           return;
         });
     };

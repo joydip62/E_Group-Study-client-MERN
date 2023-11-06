@@ -5,34 +5,39 @@ import { useState } from "react";
 // import toast from "react-hot-toast";
 import Social from "../../shared/Social";
 import Swal from "sweetalert2";
+import useAxios from "../../hooks/useAxios";
+
 
 const Login = () => {
     
   const { userLogIn } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
+  const axios = useAxios();
+  
     const [showPass, setShowPass] = useState(false);
     
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
       e.preventDefault();
       const email = e.target.email.value;
       const password = e.target.password.value;
 
-      userLogIn(email, password)
-        // eslint-disable-next-line no-unused-vars
-        .then((result) => {
-          // toast.success("You have successfully sign in");
-          Swal.fire(
+      try {
+        const user = await userLogIn(email, password);
+
+        console.log(user.user.email);
+
+        axios.post("/jwt", { email: user.user.email });
+        Swal.fire(
             "Good job!",
             "You have successfully sign in with google!",
             "success"
           );
           navigate(location?.state ? location.state : "/");
-        })
-        .catch((error) => {
-          // return toast.error(error.message);
-          return Swal.fire("Oopsss", error.message, "error");
-        });
+      }
+      catch (error) {
+        return Swal.fire("Oopsss", error.message, "error");
+        }
     };
 
     return (
