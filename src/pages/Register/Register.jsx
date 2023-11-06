@@ -2,8 +2,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import Social from "../../shared/Social";
+import Swal from "sweetalert2";
 
 const Register = () => {
     const { createUser, handleUpdateProfile } = useAuth();
@@ -19,17 +20,38 @@ const Register = () => {
       const password = e.target.password.value;
 
       if (password.length < 6) {
-        toast.error("Your password must be at least 6 characters");
+        // toast.error("Your password must be at least 6 characters");
+        Swal.fire(
+          "Oopsss",
+          "Your password must be at least 6 characters",
+          "error"
+        );
+
         return;
       } else if (!/^(?=.*?[a-z])/.test(password)) {
-        toast.error("Your password must be at least 1 lowercase");
+        // toast.error("Your password must be at least 1 lowercase");
+        Swal.fire(
+          "Oopsss",
+          "Your password must be at least 1 lowercase",
+          "error"
+        );
         return;
       } else if (!/(?=.*?[A-Z])/.test(password)) {
-        toast.error("Your password must be at least 1 uppercase");
+        // toast.error("Your password must be at least 1 uppercase");
+        Swal.fire(
+          "Oopsss",
+          "Your password must be at least 1 uppercase",
+          "error"
+        );
         return;
       } else if (!/(?=.*?[#?!@$%^&*-])/.test(password)) {
-        toast.error(
-          "Your password must be at least 1 special character(#?!@$%^&*-)"
+        // toast.error(
+        //   "Your password must be at least 1 special character(#?!@$%^&*-)"
+        // );
+        Swal.fire(
+          "Oopsss",
+          "Your password must be at least 1 special character(#?!@$%^&*-)",
+          "error"
         );
         return;
       }
@@ -38,12 +60,14 @@ const Register = () => {
         // eslint-disable-next-line no-unused-vars
         .then(() => {
           handleUpdateProfile(name, photoUrl).then(() => {
-            toast.success("You have successfully Register");
+            // toast.success("You have successfully Register");
+            Swal.fire("Good Job!", "You have successfully Register", "success");
             navigate(location?.state ? location.state : "/");
           });
         })
         .catch((error) => {
-          toast.error(error.message);
+          // toast.error(error.message);
+          Swal.fire("Oopsss", error.message, "error");
           return;
         });
     };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useAuth from "../../../hooks/useAuth";
 
 const CreateAssignment = () => {
   useEffect(() => {
@@ -9,28 +10,32 @@ const CreateAssignment = () => {
 
   const [startDate, setStartDate] = useState(new Date());
 
-    const handleCreateAssignment = e => {
-        e.preventDefault();
-        const form = e.target;
-        const title = form.title.value;
-        const marks = form.marks.value;
-        const difficultyLevel = form.difficultyLevel.value;
-        const description = form.description.value;
-        const dueDate = form.dueDate.value;
-        const image = form.image.value;
-        
+  const { user } = useAuth();
 
-        const assignment = {
-          title,
-          marks,
-          difficultyLevel,
-          description,
-          dueDate,
-          image,
-        };
+  const handleCreateAssignment = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const title = form.title.value;
+    const marks = form.marks.value;
+    const difficultyLevel = form.difficultyLevel.value;
+    const description = form.description.value;
+    const dueDate = form.dueDate.value;
+    const image = form.image.value;
+    const assignmentCreator = user.email;
 
-        console.log(assignment);
-    }
+    const assignment = {
+      title,
+      marks,
+      difficultyLevel,
+      description,
+      dueDate,
+      image,
+      assignmentCreator,
+    };
+
+    
+    console.log(assignment);
+  };
   return (
     <div className="w-3/4 m-auto text-center lg:p-24">
       <h2 className="text-3xl mb-8 font-bold">Create Assignment</h2>

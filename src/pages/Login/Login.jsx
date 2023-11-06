@@ -2,8 +2,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import Social from "../../shared/Social";
+import Swal from "sweetalert2";
 
 const Login = () => {
     
@@ -20,11 +21,17 @@ const Login = () => {
       userLogIn(email, password)
         // eslint-disable-next-line no-unused-vars
         .then((result) => {
-          toast.success("You have successfully sign in");
+          // toast.success("You have successfully sign in");
+          Swal.fire(
+            "Good job!",
+            "You have successfully sign in with google!",
+            "success"
+          );
           navigate(location?.state ? location.state : "/");
         })
         .catch((error) => {
-          return toast.error(error.message);
+          // return toast.error(error.message);
+          return Swal.fire("Oopsss", error.message, "error");
         });
     };
 

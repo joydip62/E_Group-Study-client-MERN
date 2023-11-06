@@ -1,24 +1,30 @@
 
 import google from "./../../public/google.png";
 import { useLocation, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
 const Social = () => {
 
   const navigate = useNavigate();
 
   const { googleLogin } = useAuth();
   const location = useLocation();
-
+  
   const handleGoogleSignIn = (media) => {
     // eslint-disable-next-line no-unused-vars
     media()
       // eslint-disable-next-line no-unused-vars
       .then(result => {
-      toast.success('You have successfully sign in with google');
+        Swal.fire(
+          "Good job!",
+          "You have successfully sign in with google!",
+          "success"
+        );
+      // toast.success('You have successfully sign in with google');
       navigate(location?.state ? location.state : "/");
     }).catch(error => {
-      return toast.error(error.message);
+      return Swal.fire("Oopsss", error.message, "error");
 })
   }
     return (
@@ -32,6 +38,7 @@ const Social = () => {
             <img src={google} className="w-5" />
             Continue with Google
           </button>
+          
         </div>
       </div>
     );
