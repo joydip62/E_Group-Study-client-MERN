@@ -63,14 +63,25 @@ const AssignmentDetails = () => {
   const handleAssignmentSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
+    const title = assignment.title;
+    const marks = assignment.marks;
     const pdfLink = form.pdfLink.value;
     const textNote = form.textNote.value;
-    const submittedUser = user.email;
+    const obtainMarks = "";
+    const feedback = "";
+      const submittedUser = user.email;
+      const status = "Pending";
+
 
     const submitAssignment = {
+      title,
+      marks,
       pdfLink,
       textNote,
+      obtainMarks,
+      feedback,
       submittedUser,
+      status,
     };
     axios
       .post("submit/assignment", submitAssignment)

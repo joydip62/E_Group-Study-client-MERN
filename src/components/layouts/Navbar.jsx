@@ -60,7 +60,7 @@ const Navbar = () => {
               </NavLink>
 
               <NavLink
-                to="/"
+                to="/my-submitted-assignment"
                 className={({ isActive }) =>
                   isActive ? "btn btn-sm btn-neutral" : "btn btn-sm btn-ghost"
                 }
@@ -69,7 +69,7 @@ const Navbar = () => {
               </NavLink>
 
               <NavLink
-                to="/"
+                to="/all-submitted-assignment"
                 className={({ isActive }) =>
                   isActive ? "btn btn-sm btn-neutral" : "btn btn-sm btn-ghost"
                 }
