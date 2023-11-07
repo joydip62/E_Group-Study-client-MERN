@@ -6,12 +6,12 @@ import { useState } from "react";
 
 const AssignmentDetails = () => {
   const assignment = useLoaderData();
-    const { user } = useAuth();
-    const axios = useAxios();
-    const [updateAssignments, setUpdateAssignments] = useState([]);
+  const { user } = useAuth();
+  const axios = useAxios();
+  const [updateAssignments, setUpdateAssignments] = useState([]);
 
-    const navigate = useNavigate();
-    
+  const navigate = useNavigate();
+
   const handleDeleteAssignment = (_id, assignmentCreator) => {
     if (user?.email === assignmentCreator) {
       axios
@@ -36,12 +36,9 @@ const AssignmentDetails = () => {
               const remaining = updateAssignments.filter(
                 (assign) => assign._id !== _id
               );
-                setUpdateAssignments(remaining);
-                navigate("/all-assignment");
-                
-            } else if (
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
+              setUpdateAssignments(remaining);
+              navigate("/all-assignment");
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
               Swal.fire({
                 title: "Cancelled",
                 text: "Your imaginary file is safe :)",
@@ -61,8 +58,37 @@ const AssignmentDetails = () => {
         icon: "error",
       });
     }
-    };
+  };
 
+  const handleAssignmentSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const pdfLink = form.pdfLink.value;
+    const textNote = form.textNote.value;
+    const submittedUser = user.email;
+
+    const submitAssignment = {
+      pdfLink,
+      textNote,
+      submittedUser,
+    };
+    axios
+      .post("submit/assignment", submitAssignment)
+      // eslint-disable-next-line no-unused-vars
+      .then((res) => {
+        Swal.fire(
+          "Good job!",
+          "Your Assignment submitted successfully!",
+          "success"
+          );
+          document.getElementById("my_modal_3").close();
+
+        navigate("/all-assignment");
+      })
+      .catch(function (error) {
+        Swal.fire("Oopsss", error.message, "error");
+      });
+  };
 
   return (
     <div>
@@ -84,9 +110,62 @@ const AssignmentDetails = () => {
               Assignment Creator : {assignment.assignmentCreator}
             </p>
             <div className="flex justify-start gap-5">
-              <button className="btn btn-info">
+              <button
+                className="btn btn-info"
+                onClick={() =>
+                  document.getElementById("my_modal_3").showModal()
+                }
+              >
                 Take Assignment
               </button>
+              <dialog id="my_modal_3" className="modal">
+                <div className="modal-box">
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button
+                      className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                      onClick={() =>
+                        document.getElementById("my_modal_3").close()
+                      }
+                    >
+                      ✕
+                    </button>
+                  </form>
+                  <h3 className="font-bold text-lg">
+                    Submit Your Assignment document
+                  </h3>
+                  <form onSubmit={handleAssignmentSubmit}>
+                    <label className="label">
+                      <span className="label-text">Assignment PDF Link</span>
+                    </label>
+                    <label className="input-group">
+                      <input
+                        type="url"
+                        placeholder="Enter assignment pdf link"
+                        className="input input-bordered w-full"
+                        name="pdfLink"
+                        required
+                      />
+                    </label>
+
+                    <label className="label">
+                      <span className="label-text">Assignment Text note</span>
+                    </label>
+                    <label className="input-group">
+                      <textarea
+                        placeholder="Text note"
+                        className="textarea textarea-bordered textarea-lg w-full"
+                        name="textNote"
+                      ></textarea>
+                    </label>
+                    <input
+                      className="mt-5 btn btn-info btn-block"
+                      type="submit"
+                      value="Submit Assignment"
+                    />
+                  </form>
+                </div>
+              </dialog>
 
               <button
                 onClick={() =>
