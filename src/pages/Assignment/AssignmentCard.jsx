@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 const AssignmentCard = ({ assignment }) => {
@@ -15,6 +17,22 @@ const AssignmentCard = ({ assignment }) => {
     image,
     assignmentCreator,
   } = assignment;
+
+      const { user } = useAuth();
+
+      const navigate = useNavigate();
+      const handleUpdateAssignment = (_id, assignmentCreator) => {
+        if (user?.email === assignmentCreator) {
+          navigate(`/updateAssignment/${_id}`);
+        } else {
+          Swal.fire({
+            title: "Unauthorized",
+            text: "You do not have permission to update this assignment.",
+            icon: "error",
+          });
+        }
+  };
+  
 
   return (
     <div>
@@ -34,7 +52,17 @@ const AssignmentCard = ({ assignment }) => {
 
           <div className="flex justify-end gap-5">
             <div className="card-actions justify-end">
-              <button className="btn btn-primary">Update Assignment</button>
+              <button
+                onClick={() =>
+                  handleUpdateAssignment(
+                    assignment._id,
+                    assignment.assignmentCreator
+                  )
+                }
+                className="btn btn-primary"
+              >
+                Update Assignment
+              </button>
             </div>
 
             <div className="card-actions justify-end">
@@ -42,15 +70,6 @@ const AssignmentCard = ({ assignment }) => {
                 <button className="btn btn-info">View Assignment</button>
               </NavLink>
             </div>
-
-            {/* <div className="card-actions justify-end">
-              <button
-                onClick={() => handleDeleteAssignment(_id, assignmentCreator)}
-                className="btn btn-error"
-              >
-                Delete
-              </button>
-            </div> */}
           </div>
         </div>
       </div>

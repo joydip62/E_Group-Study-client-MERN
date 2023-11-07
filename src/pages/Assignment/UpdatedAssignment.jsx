@@ -1,28 +1,26 @@
 import { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import useAuth from "../../../hooks/useAuth";
-import useAxios from "../../../hooks/useAxios";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import DatePicker from "react-datepicker";
+import useAuth from "../../hooks/useAuth";
 
-const CreateAssignment = () => {
+const UpdatedAssignment = () => {
+  const assignment = useLoaderData();
+
   const [formData, setFormData] = useState({
-    title: "",
-    marks: "",
-    difficultyLevel: "",
-    description: "",
+    _id: assignment._id,
+    title: assignment.title || "",
+    marks: assignment.marks || "",
+    difficultyLevel: assignment.difficultyLevel || "",
+    description: assignment.description || "",
     dueDate: "",
-    image: "",
+    image: assignment.image || "",
   });
 
   const [formErrors, setFormErrors] = useState({});
 
   const { user } = useAuth();
-  const axios = useAxios();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -72,17 +70,26 @@ const CreateAssignment = () => {
     return urlRegex.test(url);
   };
 
-  const handleCreateAssignment = (e) => {
+  const handleUpdateAssignment = (e) => {
     e.preventDefault();
+
     const isFormValid = validateForm();
 
     if (isFormValid) {
-      const { title, marks, difficultyLevel, description, dueDate, image } =
-        formData;
+      const {
+        _id,
+        title,
+        marks,
+        difficultyLevel,
+        description,
+        dueDate,
+        image,
+      } = formData;
 
       const assignmentCreator = user.email;
 
       const assignment = {
+        _id,
         title,
         marks,
         difficultyLevel,
@@ -92,35 +99,46 @@ const CreateAssignment = () => {
         assignmentCreator,
       };
 
-      axios
-        .post("create/assignment", assignment)
-        // eslint-disable-next-line no-unused-vars
-        .then((res) => {
-          Swal.fire(
-            "Good job!",
-            "Your Assignment added successfully!",
-            "success"
-          );
-          setFormData({
-            title: "",
-            marks: "",
-            difficultyLevel: "",
-            description: "",
-            dueDate: new Date(),
-            image: "",
-          });
-        })
-        .catch(function (error) {
-          Swal.fire("Oopsss", error.message, "error");
+      console.log(assignment);
+      fetch(`http://localhost:5000/update-assignment/${_id}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(assignment),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            Swal.fire(
+              "Good job!",
+              "Your Assignment updated successfully!",
+              "success"
+            );
+            setFormData({
+              title: "",
+              marks: "",
+              difficultyLevel: "",
+              description: "",
+              dueDate: "",
+              image: "",
+            });
+            navigate("/all-assignment");
+          }
         });
     } else {
       Swal.fire("Oopsss", "Form is not valid", "error");
     }
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="w-3/4 m-auto text-center lg:p-24">
-      <h2 className="text-3xl mb-8 font-bold">Create Assignment</h2>
-      <form onSubmit={handleCreateAssignment}>
+      <h2 className="text-3xl mb-8 font-bold">Update Assignment</h2>
+      <form onSubmit={handleUpdateAssignment}>
         <div className="md:flex space-x-5 mb-8">
           {/* Title Input */}
           <div className="form-control md:w-1/2">
@@ -137,6 +155,7 @@ const CreateAssignment = () => {
                 onChange={handleInputChange}
                 required
               />
+              <input type="hidden" name="_id" value={assignment._id} />
             </label>
             {formErrors.title && (
               <p className="text-red-500">{formErrors.title}</p>
@@ -258,11 +277,11 @@ const CreateAssignment = () => {
         <input
           className="btn btn-block"
           type="submit"
-          value="Create Assignment"
+          value="Update Assignment"
         />
       </form>
     </div>
   );
 };
 
-export default CreateAssignment;
+export default UpdatedAssignment;

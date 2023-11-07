@@ -1,4 +1,4 @@
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
@@ -11,7 +11,7 @@ const AssignmentDetails = () => {
     const [updateAssignments, setUpdateAssignments] = useState([]);
 
     const navigate = useNavigate();
-
+    
   const handleDeleteAssignment = (_id, assignmentCreator) => {
     if (user?.email === assignmentCreator) {
       axios
@@ -61,7 +61,8 @@ const AssignmentDetails = () => {
         icon: "error",
       });
     }
-  };
+    };
+
 
   return (
     <div>
@@ -83,9 +84,9 @@ const AssignmentDetails = () => {
               Assignment Creator : {assignment.assignmentCreator}
             </p>
             <div className="flex justify-start gap-5">
-              <NavLink>
-                <button className="btn btn-info">Take Assignment</button>
-              </NavLink>
+              <button className="btn btn-info">
+                Take Assignment
+              </button>
 
               <button
                 onClick={() =>
