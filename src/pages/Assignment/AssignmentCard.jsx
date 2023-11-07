@@ -38,7 +38,7 @@ const AssignmentCard = ({ assignment }) => {
             </div>
 
             <div className="card-actions justify-end">
-              <NavLink to={`assignment-details/${_id}`}>
+              <NavLink to={`/assignment-details/${_id}`}>
                 <button className="btn btn-info">View Assignment</button>
               </NavLink>
             </div>
