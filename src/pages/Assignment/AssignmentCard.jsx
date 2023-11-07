@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 
+import { NavLink } from "react-router-dom";
 
-const AssignmentCard = ({ assignment, handleDeleteAssignment }) => {
+
+const AssignmentCard = ({ assignment }) => {
 
   const {
     _id,
@@ -36,17 +38,19 @@ const AssignmentCard = ({ assignment, handleDeleteAssignment }) => {
             </div>
 
             <div className="card-actions justify-end">
-              <button className="btn btn-info">View Assignment</button>
+              <NavLink to={`assignment-details/${_id}`}>
+                <button className="btn btn-info">View Assignment</button>
+              </NavLink>
             </div>
 
-            <div className="card-actions justify-end">
+            {/* <div className="card-actions justify-end">
               <button
                 onClick={() => handleDeleteAssignment(_id, assignmentCreator)}
                 className="btn btn-error"
               >
                 Delete
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

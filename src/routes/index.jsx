@@ -7,35 +7,53 @@ import Assignment from "../pages/Assignment/Assignment";
 import PrivateRoute from "./PrivateRoute";
 import CreateAssignment from "../pages/Assignment/CreateAssignment/CreateAssignment";
 import NotFoundPage from "../pages/Error/NotFoundPage";
+import AssignmentDetails from "../pages/Assignment/AssignmentDetails";
 
 const routes = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-        errorElement: <NotFoundPage/>,
-        children: [
-            {
-                index: true,
-                element: <Home />
-            },
-            {
-                path: 'assignment',
-                element: <Assignment />
-            },
-            {
-                path: 'createAssignment',
-                element: <PrivateRoute><CreateAssignment /></PrivateRoute>
-            }
-        ]
-    },
-    {
-        path: '/login',
-        element: <Login />
-    },
-    {
-        path: '/register',
-        element: <Register/>
-    }
-])
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <NotFoundPage />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "all-assignment",
+        element: <Assignment />,
+      },
+      {
+        path: "createAssignment",
+        element: (
+          <PrivateRoute>
+            <CreateAssignment />
+          </PrivateRoute>
+        ),
+      },
+
+      {
+        path: "assignment-details/:id",
+        element: (
+          <PrivateRoute>
+            <AssignmentDetails />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `http://localhost:5000/assignment/${params.id}`
+          ),
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+]);
 
 export default routes;

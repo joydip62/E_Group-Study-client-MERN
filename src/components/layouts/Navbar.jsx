@@ -18,7 +18,7 @@ const Navbar = () => {
         </NavLink>
 
         <NavLink
-          to="/assignment"
+          to="all-assignment"
           className={({ isActive }) =>
             isActive ? "btn btn-sm btn-neutral" : "btn btn-sm btn-ghost"
           }
