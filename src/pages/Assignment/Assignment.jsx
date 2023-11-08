@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import useAxios from "../../hooks/useAxios";
+
+
+// import useAxios from "../../hooks/useAxios";
 // import useAuth from "../../hooks/useAuth";
 import AssignmentCard from "./AssignmentCard";
 // import { useQueries } from "@tanstack/react-query";
 // import Swal from "sweetalert2";
 // import useAuth from "../../hooks/useAuth";
+
 
 // const itemsPerPage = 6;
 
@@ -13,13 +16,23 @@ const Assignment = () => {
   const [filterDifficulty, setFilterDifficulty] = useState("");
   // const [currentPage, setCurrentPage] = useState(1);
   
-  const axios = useAxios();
+  // const axios = useAxios();
+
+  // useEffect(() => {
+  //   axios.get("all/assignment").then((res) => {
+  //     setUpdateAssignments(res.data);
+  //   });
+  // }, [axios]);
 
   useEffect(() => {
-    axios.get("/all/assignment").then((res) => {
-      setUpdateAssignments(res.data);
-    });
-  }, [axios]);
+    fetch(
+      "https://online-group-study-server-puce.vercel.app/all/assignment"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setUpdateAssignments(data);
+      });
+  }, []);
 
   const filterAssignments = () => {
     return updateAssignments.filter(
@@ -71,8 +84,7 @@ const Assignment = () => {
   //    return pages;
   //  };
   
-  
-  
+
   return (
     <div>
       <div>
@@ -93,7 +105,10 @@ const Assignment = () => {
           </select>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div
+          className="mt-10 gap-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          data-aos="fade-up"
+        >
           {filterAssignments().map((assignment) => (
             <AssignmentCard key={assignment._id} assignment={assignment} />
           ))}

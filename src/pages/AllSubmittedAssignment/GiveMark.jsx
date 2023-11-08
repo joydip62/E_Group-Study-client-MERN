@@ -20,13 +20,16 @@ const GiveMark = () => {
           status,
         };
 
-        fetch(`http://localhost:5000/update-assignment-mark/${_id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(updateSubmittedAssignment),
-        })
+        fetch(
+          `https://online-group-study-server-puce.vercel.app/update-assignment-mark/${_id}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(updateSubmittedAssignment),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount > 0) {

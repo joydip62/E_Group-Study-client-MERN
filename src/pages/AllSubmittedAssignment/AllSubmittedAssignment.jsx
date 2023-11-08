@@ -14,7 +14,9 @@ const AllSubmittedAssignment = () => {
   };
   
   useEffect(() => {
-    fetch("http://localhost:5000/all-submitted-assignment")
+    fetch(
+      "https://online-group-study-server-puce.vercel.app/all-submitted-assignment"
+    )
       .then((res) => res.json())
       .then((data) => {
         const filteredData = data.filter((item) => item.status === "Pending");

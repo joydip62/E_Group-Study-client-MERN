@@ -24,9 +24,12 @@ const AssignmentDetails = () => {
        confirmButtonText: "Yes, delete it!",
      }).then((result) => {
        if (result.isConfirmed) {
-         fetch(`http://localhost:5000/delete/assignment/${_id}`, {
-           method: "DELETE",
-         })
+         fetch(
+           `https://online-group-study-server-puce.vercel.app/delete/assignment/${_id}`,
+           {
+             method: "DELETE",
+           }
+         )
            .then((res) => res.json())
            .then((data) => {
              if (data.deletedCount > 0) {

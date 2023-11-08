@@ -35,7 +35,7 @@ const SideBar = () => {
         </NavLink>
 
         <NavLink
-          to="/assignment"
+          to="all-assignment"
           className={({ isActive }) =>
             isActive ? "btn btn-neutral" : "btn btn-ghost"
           }
@@ -65,7 +65,7 @@ const SideBar = () => {
         ) : (
           <>
             <NavLink
-              to="/"
+              to="/createAssignment"
               className={({ isActive }) =>
                 isActive ? "btn btn-sm btn-neutral" : "btn btn-sm btn-ghost"
               }
@@ -74,7 +74,7 @@ const SideBar = () => {
             </NavLink>
 
             <NavLink
-              to="/"
+              to="/my-submitted-assignment"
               className={({ isActive }) =>
                 isActive ? "btn btn-sm btn-neutral" : "btn btn-sm btn-ghost"
               }
@@ -83,7 +83,7 @@ const SideBar = () => {
             </NavLink>
 
             <NavLink
-              to="/"
+              to="/all-submitted-assignment"
               className={({ isActive }) =>
                 isActive ? "btn btn-sm btn-neutral" : "btn btn-sm btn-ghost"
               }

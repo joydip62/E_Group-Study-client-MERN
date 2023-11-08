@@ -44,7 +44,9 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/assignment/${params.id}`),
+          fetch(
+            `https://online-group-study-server-puce.vercel.app/assignment/${params.id}`
+          ),
       },
 
       {
@@ -55,7 +57,9 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/assignment/${params.id}`),
+          fetch(
+            `https://online-group-study-server-puce.vercel.app/assignment/${params.id}`
+          ),
       },
 
       {
@@ -85,7 +89,7 @@ const routes = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `http://localhost:5000/all-submitted-assignment/${params.id}`
+            `https://online-group-study-server-puce.vercel.app/all-submitted-assignment/${params.id}`
           ),
       },
     ],

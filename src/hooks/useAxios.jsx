@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "http://localhost:5000/",
-    withCredentials: true,
+  baseURL: "https://online-group-study-server-puce.vercel.app/",
+  withCredentials: true,
 }); 
 const useAxios = () => {
     return instance;

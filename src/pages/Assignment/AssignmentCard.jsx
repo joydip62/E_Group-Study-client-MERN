@@ -33,7 +33,10 @@ const AssignmentCard = ({ assignment }) => {
 
   return (
     <div>
-      <div className="card card-compact w-96 bg-base-100 shadow-xl mb-10">
+      <div
+        className="card card-compact bg-base-100 shadow-xl mb-10"
+        data-aos="fade-up"
+      >
         <figure>
           <img src={image} alt={title} />
         </figure>

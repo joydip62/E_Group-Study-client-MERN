@@ -100,13 +100,16 @@ const UpdatedAssignment = () => {
       };
 
       console.log(assignment);
-      fetch(`http://localhost:5000/update-assignment/${_id}`, {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(assignment),
-      })
+      fetch(
+        `https://online-group-study-server-puce.vercel.app/update-assignment/${_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(assignment),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.modifiedCount > 0) {

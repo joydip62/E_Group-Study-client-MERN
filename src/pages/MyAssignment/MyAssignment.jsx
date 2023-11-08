@@ -8,7 +8,9 @@ const MyAssignment = () => {
 
 
         useEffect(() => {
-          fetch("http://localhost:5000/my-assignment")
+          fetch(
+            "https://online-group-study-server-puce.vercel.app/my-assignment"
+          )
             .then((res) => res.json())
             .then((data) => {
               const userEmail = user?.email;
