@@ -127,7 +127,7 @@ const GiveMark = () => {
           <input
             className="btn btn-block"
             type="submit"
-            value="Update Product"
+            value="Submit mark and feedback"
           />
         </form>
       </div>

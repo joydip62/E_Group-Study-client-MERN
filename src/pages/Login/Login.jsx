@@ -30,7 +30,7 @@ const Login = () => {
         axios.post("/jwt", { email: user.user.email });
         Swal.fire(
             "Good job!",
-            "You have successfully sign in with google!",
+            "You have successfully sign in with email password!",
             "success"
           );
           navigate(location?.state ? location.state : "/");

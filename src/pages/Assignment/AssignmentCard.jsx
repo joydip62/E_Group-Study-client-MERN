@@ -4,9 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
-
 const AssignmentCard = ({ assignment }) => {
-
   const {
     _id,
     title,
@@ -18,21 +16,20 @@ const AssignmentCard = ({ assignment }) => {
     assignmentCreator,
   } = assignment;
 
-      const { user } = useAuth();
+  const { user } = useAuth();
 
-      const navigate = useNavigate();
-      const handleUpdateAssignment = (_id, assignmentCreator) => {
-        if (user?.email === assignmentCreator) {
-          navigate(`/updateAssignment/${_id}`);
-        } else {
-          Swal.fire({
-            title: "Unauthorized",
-            text: "You do not have permission to update this assignment.",
-            icon: "error",
-          });
-        }
+  const navigate = useNavigate();
+  const handleUpdateAssignment = (_id, assignmentCreator) => {
+    if (user?.email === assignmentCreator) {
+      navigate(`/updateAssignment/${_id}`);
+    } else {
+      Swal.fire({
+        title: "Unauthorized",
+        text: "You do not have permission to update this assignment.",
+        icon: "error",
+      });
+    }
   };
-  
 
   return (
     <div>

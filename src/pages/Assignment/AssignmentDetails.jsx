@@ -12,53 +12,51 @@ const AssignmentDetails = () => {
 
   const navigate = useNavigate();
 
-  const handleDeleteAssignment = (_id, assignmentCreator) => {
-    if (user?.email === assignmentCreator) {
-      axios
-        .delete(`/delete/assignment/${_id}`)
-        // eslint-disable-next-line no-unused-vars
-        .then((res) => {
-          Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: true,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your Assignment has been deleted.",
-                icon: "success",
-              });
-              const remaining = updateAssignments.filter(
-                (assign) => assign._id !== _id
-              );
-              setUpdateAssignments(remaining);
-              navigate("/all-assignment");
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-              Swal.fire({
-                title: "Cancelled",
-                text: "Your imaginary file is safe :)",
-                icon: "error",
-              });
-            }
-          });
-        })
-        .catch((error) => {
-          // Handle error
-          console.error("Error deleting assignment", error);
-        });
-    } else {
-      Swal.fire({
-        title: "Unauthorized",
-        text: "You do not have permission to delete this assignment.",
-        icon: "error",
-      });
-    }
-  };
+ const handleDeleteAssignment = (_id, assignmentCreator) => {
+   if (user?.email === assignmentCreator) {
+     Swal.fire({
+       title: "Are you sure to delete this assignment?",
+       text: "You won't be able to revert this!",
+       icon: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#3085d6",
+       cancelButtonColor: "#d33",
+       confirmButtonText: "Yes, delete it!",
+     }).then((result) => {
+       if (result.isConfirmed) {
+         fetch(`http://localhost:5000/delete/assignment/${_id}`, {
+           method: "DELETE",
+         })
+           .then((res) => res.json())
+           .then((data) => {
+             if (data.deletedCount > 0) {
+               Swal.fire(
+                 "Deleted!",
+                 "Your Assignment has been deleted.",
+                 "success"
+               );
+               const remaining = updateAssignments.filter(
+                 (assignment) => assignment._id !== _id
+               );
+               setUpdateAssignments(remaining);
+               navigate("/all-assignment");
+             }
+           });
+       } else if (result.isDismissed) {
+         // User canceled the delete action
+         Swal.fire("Cancelled", "Your Assignment is safe.", "error");
+       }
+     });
+   } else {
+     Swal.fire({
+       title: "Unauthorized",
+       text: "You do not have permission to delete this assignment.",
+       icon: "error",
+     });
+   }
+ };
+
+
 
   const handleAssignmentSubmit = (e) => {
     e.preventDefault();

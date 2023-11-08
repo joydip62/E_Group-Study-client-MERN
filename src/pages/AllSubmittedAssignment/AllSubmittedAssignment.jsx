@@ -41,6 +41,11 @@ const AllSubmittedAssignment = () => {
                   >
                     Give Mark
                   </Link>
+                  
+                  <button className="btn btn-info btn-xs ml-3">
+                    See Assignment
+                  </button>
+
                 </td>
               </tr>
             ))}
