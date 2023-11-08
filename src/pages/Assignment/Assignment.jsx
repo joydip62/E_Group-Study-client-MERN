@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 // import useAuth from "../../hooks/useAuth";
 import AssignmentCard from "./AssignmentCard";
+// import { useQueries } from "@tanstack/react-query";
 // import Swal from "sweetalert2";
 // import useAuth from "../../hooks/useAuth";
+
+// const itemsPerPage = 6;
 
 const Assignment = () => {
   const [updateAssignments, setUpdateAssignments] = useState([]);
   const [filterDifficulty, setFilterDifficulty] = useState("");
+  // const [currentPage, setCurrentPage] = useState(1);
   
   const axios = useAxios();
 
@@ -24,6 +28,51 @@ const Assignment = () => {
     );
   };
 
+    // const getAssignment = async () => {
+    //   const res = await axios.get("/all/assignment");
+    //   return res;
+    // };
+
+    // const {
+    //   data: assignment,
+    //   isLoading,
+    //   isError,
+    //   error,
+    // } = useQueries({
+    //   queryKey: ["assignment"],
+    //   queryFn: getAssignment,
+    // });
+  
+  
+    // const totalPages = Math.ceil(filterAssignments().length / itemsPerPage);
+
+    // const filteredAssignments = filterAssignments();
+    // const indexOfLastItem = currentPage * itemsPerPage;
+    // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    // const currentAssignments = filteredAssignments.slice(
+    //   indexOfFirstItem,
+    //   indexOfLastItem
+    // );
+
+  //  const renderPagination = () => {
+  //    const pages = [];
+  //    for (let i = 1; i <= totalPages; i++) {
+  //      pages.push(
+  //        <button
+  //          key={i}
+  //          className={`join-item btn ${currentPage === i ? "btn-active" : ""}`}
+  //          onClick={() => setCurrentPage(i)}
+  //        >
+  //          {i}
+  //        </button>
+  //      );
+  //    }
+
+  //    return pages;
+  //  };
+  
+  
+  
   return (
     <div>
       <div>
@@ -49,6 +98,8 @@ const Assignment = () => {
             <AssignmentCard key={assignment._id} assignment={assignment} />
           ))}
         </div>
+
+        {/* <div className="join flex justify-center">{renderPagination()}</div> */}
       </div>
     </div>
   );
