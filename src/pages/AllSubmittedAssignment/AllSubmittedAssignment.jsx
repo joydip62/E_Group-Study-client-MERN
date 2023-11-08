@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import PDFViewer from "./PDFViewer";
 
 const AllSubmittedAssignment = () => {
   const [pendingAssignments, setPendingAssignments] = useState([]);
 
+    const [showPDFViewer, setShowPDFViewer] = useState(false);
+  const [selectedPDFLink, setSelectedPDFLink] = useState("");
+  
+    const openPDFViewer = (pdfLink) => {
+      setSelectedPDFLink(pdfLink);
+      setShowPDFViewer(true);
+  };
+  
   useEffect(() => {
     fetch("http://localhost:5000/all-submitted-assignment")
       .then((res) => res.json())
@@ -41,16 +50,21 @@ const AllSubmittedAssignment = () => {
                   >
                     Give Mark
                   </Link>
-                  
-                  <button className="btn btn-info btn-xs ml-3">
+
+                  <button
+                    className="btn btn-info btn-xs ml-3"
+                    onClick={() => openPDFViewer(pendingAssignment.pdfLink)}
+                  >
                     See Assignment
                   </button>
-
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="text-center m-auto w-full mt-10">
+        {showPDFViewer && <PDFViewer pdfLink={selectedPDFLink} />}
       </div>
     </div>
   );
