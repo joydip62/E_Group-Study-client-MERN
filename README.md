@@ -17,6 +17,17 @@ Project features
 
 ##
 
+Technologies are use :
+##
+
+- Tailwind
+- daisyUI
+- ReactJS
+- Express.js
+- MongoDB
+- Firebase
+
+  
 Live link
 
 [E-Group Study](https://online-group-study-react.surge.sh/)
