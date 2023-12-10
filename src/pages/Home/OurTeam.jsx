@@ -9,7 +9,7 @@ const OurTeam = () => {
               <h2 className="text-2xl font-bold text-center">Jhon Deo</h2>
               <figure>
                 <img
-                  src="../../../public/user1.avif"
+                  src="https://i.ibb.co/WvsvMQR/user1.jpg"
                   alt=""
                   className="w-28 rounded-full"
                 />
@@ -29,7 +29,7 @@ const OurTeam = () => {
               <h2 className="text-2xl font-bold text-center">Alison</h2>
               <figure>
                 <img
-                  src="../../../public/user2.jpg"
+                  src="https://i.ibb.co/b3fQXXD/user2.jpg"
                   alt=""
                   className="w-28 h-24 rounded-full"
                 />
@@ -48,16 +48,15 @@ const OurTeam = () => {
               <h2 className="text-2xl font-bold text-center">Andrea</h2>
               <figure>
                 <img
-                  src="../../../public/user3.jpg"
+                  src="https://i.ibb.co/CmXCmz9/user3.jpg"
                   alt=""
                   className="w-28 rounded-full"
                 />
               </figure>
               <p>
                 Andrea is our guiding light in matters of education. With a
-                background in E_group Study, she curate educational
-                content to ensure it meets the highest standards of quality and
-                relevance.
+                background in E_group Study, she curate educational content to
+                ensure it meets the highest standards of quality and relevance.
               </p>
             </div>
           </div>

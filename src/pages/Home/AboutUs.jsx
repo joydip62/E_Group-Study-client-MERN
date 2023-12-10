@@ -5,7 +5,7 @@ const AboutUs = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <div className="p-10 pt-0 shadow-xl">
             <img
-              src="../../../public/mission.png"
+              src="https://i.ibb.co/71xvgLX/mission.png"
               alt=""
               className="w-52 mx-auto"
             />
@@ -22,7 +22,7 @@ const AboutUs = () => {
           </div>
           <div className="p-10 pt-0 shadow-xl">
             <img
-              src="../../../public/who-we-are.webp"
+              src="https://i.ibb.co/gTQX8B9/who-we-are.webp"
               alt=""
               className="w-32 mx-auto"
             />
