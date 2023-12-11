@@ -1,6 +1,6 @@
 # E_Group Study
 
-This is an assignment project. This website provide a online group study. User can create assignment, submit assignment, delete also.
+This website helps group study. Users can register with an email password. After reg/log in he/she can create a new assignment for all users. And also users can review other assignments that other users submitted.
 
 Project features
 ##
